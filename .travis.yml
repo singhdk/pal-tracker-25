@@ -13,6 +13,8 @@ jobs:
       language: java
       jdk: oraclejdk8
       install: skip
+      before_script:
+        - chmod +x gradlew
       script: ./gradlew clean build
       before_deploy:
         - git config --local user.name "Travis CI"
@@ -23,7 +25,7 @@ jobs:
         api_key: $GITHUB_OAUTH_TOKEN
         file: "build/libs/pal-tracker.jar"
         skip_cleanup: true
-    - stage: deploy to review
+    - stage: deploy to test25
       language: bash
       script:
         - echo "Downloading $RELEASE_TAG"
@@ -36,4 +38,5 @@ jobs:
         username: $CF_USERNAME
         password: $CF_PASSWORD
         organization: $CF_ORG
-        space: review
+        space: test25
+        skip_ssl_validation: true
