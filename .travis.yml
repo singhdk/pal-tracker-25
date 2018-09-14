@@ -32,6 +32,7 @@ jobs:
   - stage: deploy to test25
     language: java
     before_install:
+    - chmod +x gradlew
     - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
     - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
     - sudo apt-get update
@@ -42,7 +43,7 @@ jobs:
     - echo "Downloading $RELEASE_TAG"
     - wget -P build/libs https://github.com/$GITHUB_USERNAME/pal-tracker-25/releases/download/$RELEASE_TAG/pal-tracker.jar
     before_deploy:
-    - echo "Deploying $RELEASE_TAG to review"
+    - echo "Deploying $RELEASE_TAG to test25"
     after_success:
     - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s review
     - scripts/migrate-databases.sh pal-tracker .
