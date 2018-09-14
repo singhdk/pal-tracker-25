@@ -11,11 +11,11 @@ db_username=`echo $credentials | jq -r '.username'`
 db_password=`echo $credentials | jq -r '.password'`
 
 echo "Opening ssh tunnel to $ip_address"
-cf ssh -N -L 63306:$ip_address:3306 test25 &
+cf ssh -N -L 63306:$ip_address:3306 $1 &
 cf_ssh_pid=$!
 
 echo "Waiting for tunnel"
-sleep 5
+sleep 15
 
 flyway-*/flyway -url="jdbc:mysql://127.0.0.1:63306/$db_name" -locations=filesystem:$2/databases/tracker -user=$db_username -password=$db_password migrate
 
