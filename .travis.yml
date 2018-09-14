@@ -31,7 +31,7 @@ jobs:
         - echo "Downloading $RELEASE_TAG"
         - wget -P build/libs https://github.com/$GITHUB_USERNAME/pal-tracker-25/releases/download/$RELEASE_TAG/pal-tracker.jar
       before_deploy:
-        - echo "Deploying $RELEASE_TAG to review"
+        - echo "Deploying $RELEASE_TAG to test25"
       deploy:
         provider: cloudfoundry
         api: $CF_API_URL
